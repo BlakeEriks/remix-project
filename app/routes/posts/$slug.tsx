@@ -1,18 +1,17 @@
 import { json, LoaderFunction, useLoaderData } from "remix"
+import invariant from "tiny-invariant"
+import { getPost } from "~/post"
 
-export const loader: LoaderFunction = async ({params}) => {
-  return json(params.slug)
+export const loader: LoaderFunction = async ({params}) => {4
+  invariant(params.slug, "expected params.slug")
+  return json(await getPost(params.slug))
 }
 
 export default () => {
   
-  const slug = useLoaderData()
+  const post = useLoaderData()
   
   return (
-    <main>
-      <h1>
-        Some post: {slug}
-      </h1>
-    </main>
+    <main dangerouslySetInnerHTML={{ __html: post.html }}/>
   )
 }
