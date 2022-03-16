@@ -6,8 +6,8 @@ export const loader = async () => {
 }
 
 export default () => {
+  
   const posts = useLoaderData<Post[]>()
-  console.log(posts)
 
   return (
     <main>
